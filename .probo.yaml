@@ -2,7 +2,7 @@ image: mbagnall/ubuntu:18.04-php8.0
 
 steps:
   - name: Set Up Pre-requisites Database
-    plugin: LAMPApp
+    plugin: Drupal
     databaseName: drupal2
     databaseUser: sysop-user
     docroot: docroot/web
@@ -25,5 +25,6 @@ steps:
       cd /var/www
       ln -s /src/docroot/web html
       chmod -R 777 /src/docroot/web/sites/default
+      drush ev '\Drupal::state()->set("govinfo.settings.api_key", "govinfo.settings.api_key")'
       drush cr
 
