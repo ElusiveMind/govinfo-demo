@@ -11,7 +11,7 @@ steps:
     plugin: Script
     script: |
       cd $SRC_DIR
-      export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
+      export PATH="/src/docroot/vendor/drush/drush:$PATH"
       composer create-project drupal/recommended-project docroot
       cd /src/docroot
       composer require drush/drush
