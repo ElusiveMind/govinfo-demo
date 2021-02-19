@@ -1,0 +1,19 @@
+image: mbagnall/ubuntu:18.04-php8.0
+
+steps:
+  - name: Set Up Pre-requisites
+    plugin: LAMPApp
+    databaseName: drupal2
+    databaseUser: sysop-user
+
+  - name: Build Drupal 9
+    plugin: Script
+    script: |
+      cd $SRC_DIR
+      composer create-project drupal/recommended-project docroot
+      drush site:install --db-url=mysql://root:strongpassword@localhost/drupal --account-pass=password 
+      cd docroot/web/modules
+      wget https://github.com/ElusiveMind/govinfo/archive/main.zip
+      unzip main.zip
+      drush pm:enable govinfo
+
