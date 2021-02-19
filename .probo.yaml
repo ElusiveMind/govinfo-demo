@@ -16,5 +16,5 @@ steps:
       cd /src/docroot/web/modules
       wget https://github.com/ElusiveMind/govinfo/archive/main.zip
       unzip main.zip
-      drush pm:install -y govinfo
+      drush pm:enable -y govinfo
 
