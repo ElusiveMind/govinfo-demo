@@ -7,7 +7,7 @@ steps:
     databaseUser: sysop-user
     docroot: docroot/web
     settingsAppend: |
-      $conf['govinfo.settings']['api_key'] = 'MYgIbngFfG80kYvGsX9YMNC7dC88Fs487Cp7Hn8g';
+      $config['govinfo.settings']['api_key'] = 'MYgIbngFfG80kYvGsX9YMNC7dC88Fs487Cp7Hn8g';
 
   - name: Build Drupal 9
     plugin: Script
