@@ -6,8 +6,6 @@ steps:
     databaseName: drupal2
     databaseUser: sysop-user
     docroot: docroot/web
-    settingsAppend: |
-      $config['govinfo.settings']['api_key'] = 'MYgIbngFfG80kYvGsX9YMNC7dC88Fs487Cp7Hn8g';
 
   - name: Build Drupal 9
     plugin: Script
@@ -17,7 +15,7 @@ steps:
       export PATH="/src/docroot/vendor/drush/drush:$PATH"
       composer create-project drupal/recommended-project docroot
       cd /src/docroot
-      composer require drush/drush drupal/admin_toolbar
+      composer require drush/drush drupal/admin_toolbar drupal/search_api drupal/search_api_solr
       cd /src/docroot/web
       drush site:install -y --db-url=mysql://root:strongpassword@localhost/drupal --account-pass=password 
       cd /src/docroot/web/modules
