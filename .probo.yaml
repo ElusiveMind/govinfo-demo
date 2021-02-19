@@ -14,13 +14,14 @@ steps:
       export PATH="/src/docroot/vendor/drush/drush:$PATH"
       composer create-project drupal/recommended-project docroot
       cd /src/docroot
-      composer require drush/drush
+      composer require drush/drush drupal/admin_toolbar
       cd /src/docroot/web
       drush site:install -y --db-url=mysql://root:strongpassword@localhost/drupal --account-pass=password 
       cd /src/docroot/web/modules
       wget https://github.com/ElusiveMind/govinfo/archive/main.zip
       unzip main.zip
       drush pm:enable -y govinfo
+      drush pm:enable -y admin_toolbar
       cd /var/www
       ln -s /src/docroot/web html
 
