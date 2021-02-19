@@ -25,6 +25,7 @@ steps:
       drush pm:enable -y admin_toolbar
       cd /var/www
       ln -s /src/docroot/web html
+      ln -s /src/docroot/vendor/drush/drush/drush/ /usr/local/bin/drush
       chmod -R 777 /src/docroot/web/sites/default
       drush cr
 
