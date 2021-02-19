@@ -15,7 +15,7 @@ steps:
       export PATH="/src/docroot/vendor/drush/drush:$PATH"
       composer create-project drupal/recommended-project docroot
       cd /src/docroot
-      composer require drush/drush drupal/admin_toolbar drupal/search_api drupal/search_api_solr
+      composer require drush/drush drupal/admin_toolbar drupal/search_api drupal/search_api_solr mbagnall/gov-info
       cd /src/docroot/web
       drush site:install -y --db-url=mysql://root:strongpassword@localhost/drupal --account-pass=password 
       cd /src/docroot/web/modules
