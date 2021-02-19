@@ -1,7 +1,7 @@
 image: mbagnall/ubuntu:18.04-php8.0
 
 steps:
-  - name: Set Up Pre-requisites
+  - name: Set Up Pre-requisites Database
     plugin: LAMPApp
     databaseName: drupal2
     databaseUser: sysop-user
