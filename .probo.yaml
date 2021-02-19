@@ -5,6 +5,7 @@ steps:
     plugin: LAMPApp
     databaseName: drupal2
     databaseUser: sysop-user
+    docroot: docroot/web
 
   - name: Build Drupal 9
     plugin: Script
