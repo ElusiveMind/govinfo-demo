@@ -6,10 +6,13 @@ steps:
     databaseName: drupal2
     databaseUser: sysop-user
     docroot: docroot/web
+    settingsAppend: |
+      $conf['govinfo.settings']['api_key'] = 'MYgIbngFfG80kYvGsX9YMNC7dC88Fs487Cp7Hn8g';
 
   - name: Build Drupal 9
     plugin: Script
     script: |
+      rm -rf /var/www/html
       cd $SRC_DIR
       export PATH="/src/docroot/vendor/drush/drush:$PATH"
       composer create-project drupal/recommended-project docroot
@@ -25,6 +28,5 @@ steps:
       cd /var/www
       ln -s /src/docroot/web html
       chmod -R 777 /src/docroot/web/sites/default
-      drush ev '\Drupal::state()->set("govinfo.settings.api_key", "govinfo.settings.api_key")'
       drush cr
 
