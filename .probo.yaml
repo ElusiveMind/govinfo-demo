@@ -2,13 +2,6 @@ image: mbagnall/ubuntu:18.04-php8.0
 assets:
   - drupal.sql.gz
 steps:
-  - name: Set Up Pre-requisites Database
-    plugin: Drupal
-    database: drupal.sql.gz
-    drupalVersion: 9
-    databaseName: drupal2
-    databaseUser: sysop-user
-    docroot: docroot/web
 
   - name: Build Drupal 9
     plugin: Script
@@ -26,5 +19,9 @@ steps:
       ln -s /src/docroot/web html
       ln -s /src/docroot/vendor/drush/drush/drush /usr/local/bin/drush
       chmod -R 777 /src/docroot/web/sites/default
-      drush cr
 
+  - name: Set Up Pre-requisites Database
+    plugin: Drupal
+    database: drupal.sql.gz
+    drupalVersion: 9
+    docroot: docroot/web
