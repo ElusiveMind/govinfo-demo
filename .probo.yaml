@@ -25,3 +25,4 @@ steps:
     database: drupal.sql.gz
     drupalVersion: 9
     docroot: docroot/web
+    databaseGzipped: true
