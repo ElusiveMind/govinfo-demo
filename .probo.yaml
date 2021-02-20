@@ -1,8 +1,10 @@
 image: mbagnall/ubuntu:18.04-php8.0
-
+assets:
+  - drupal.sql.gz
 steps:
   - name: Set Up Pre-requisites Database
     plugin: Drupal
+    database: drupal.sql.gz
     databaseName: drupal2
     databaseUser: sysop-user
     docroot: docroot/web
@@ -16,13 +18,9 @@ steps:
       composer create-project drupal/recommended-project docroot
       cd /src/docroot
       composer require drush/drush drupal/admin_toolbar drupal/search_api drupal/search_api_solr mbagnall/gov-info
-      cd /src/docroot/web
-      drush site:install -y --db-url=mysql://root:strongpassword@localhost/drupal --account-pass=password 
       cd /src/docroot/web/modules
       wget https://github.com/ElusiveMind/govinfo/archive/main.zip
       unzip main.zip
-      drush pm:enable -y govinfo
-      drush pm:enable -y admin_toolbar
       cd /var/www
       ln -s /src/docroot/web html
       ln -s /src/docroot/vendor/drush/drush/drush /usr/local/bin/drush
