@@ -6,6 +6,8 @@ steps:
     databaseName: drupal2
     databaseUser: sysop-user
     docroot: docroot/web
+    settingsAppend: |
+      $settings['trusted_host_patterns'] = ['.*'];
 
   - name: Build Drupal 9
     plugin: Script
@@ -26,6 +28,6 @@ steps:
       cd /var/www
       ln -s /src/docroot/web html
       ln -s /src/docroot/vendor/drush/drush/drush /usr/local/bin/drush
-      chmod -R 777 /src/docroot/web/sites/default
+      chmod -R 777 /src/docroot/web/sites/default/files
       drush cr
 
