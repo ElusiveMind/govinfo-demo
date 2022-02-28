@@ -27,7 +27,6 @@ steps:
       cd /var/www
       ln -s /src/docroot/web html
       ln -s /src/docroot/vendor/drush/drush/drush /usr/local/bin/drush
-      cat $ASSET_DIR/additional-settings.php /src/docroot/web/sites/default/settings.php > /src/docroot/web/sites/default/settings2.php
-      mv -f /src/docroot/web/sites/default/settings2.php /src/docroot/web/sites/default/settings.php
+      cat $ASSET_DIR/additional-settings.php >> /src/docroot/web/sites/default/settings.php
       chmod -R 777 /src/docroot/web/sites/default/files
       drush cr
