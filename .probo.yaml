@@ -1,25 +1,13 @@
 image: proboci/ubuntu:20.04-php8.0
-
+assets:
+  - additional-settings.php
 steps:
   - name: Set Up Pre-requisites Database
     plugin: Drupal
     databaseName: drupal2
     databaseUser: sysop-user
     docroot: docroot/web
-    settingsAppend: |
-      $settings['trusted_host_patterns'] = ['.*'];
-      $settings['file_private_path'] = '/src/private';
-      $config['search_api.server.solr']['backend_config']['connector'] = 'standard';
-      $config['search_api.server.solr']['backend_config']['connector_config']['scheme'] = 'http';
-      $config['search_api.server.solr']['backend_config']['connector_config']['host'] = 'localhost';
-      $config['search_api.server.solr']['backend_config']['connector_config']['core'] = 'drupal8';
-      $config['search_api.server.solr']['backend_config']['connector_config']['path'] = '/';
-      $config['search_api.server.solr']['backend_config']['connector_config']['timeout'] = '5';
-      $config['search_api.server.solr']['backend_config']['connector_config']['index_timeout'] = '5';
-      $config['search_api.server.solr']['backend_config']['connector_config']['optimize_timeout'] = '10';
-      $config['search_api.server.solr']['backend_config']['connector_config']['finalize_timeout'] = '30';
-      $config['search_api.server.solr']['backend_config']['connector_config']['commit_within'] = '1000';
-  
+
   - name: Build Drupal 9
     plugin: Script
     script: |
@@ -39,6 +27,6 @@ steps:
       cd /var/www
       ln -s /src/docroot/web html
       ln -s /src/docroot/vendor/drush/drush/drush /usr/local/bin/drush
+      cat $ASSET_DIR/additional-settings.php /src/docroot/web/sites/default/settings.php > /src/docroot/web/sites/default/settings.php
       chmod -R 777 /src/docroot/web/sites/default/files
       drush cr
-
