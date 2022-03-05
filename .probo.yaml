@@ -1,19 +1,32 @@
-image: mbagnall/ubuntu:18.04-php8.0
-
+image: proboci/ubuntu:20.04-php8.0
+assets:
+  - additional-settings.php
 steps:
-  - name: Set Up Pre-requisites
-    plugin: LAMPApp
+  - name: Set Up Pre-requisites Database
+    plugin: Drupal
     databaseName: drupal2
     databaseUser: sysop-user
+    docroot: docroot/web
 
   - name: Build Drupal 9
     plugin: Script
     script: |
+      rm -rf /var/www/html
       cd $SRC_DIR
+      export PATH="/src/docroot/vendor/drush/drush:$PATH"
       composer create-project drupal/recommended-project docroot
-      drush site:install --db-url=mysql://root:strongpassword@localhost/drupal --account-pass=password 
-      cd docroot/web/modules
+      cd /src/docroot
+      composer require drush/drush drupal/admin_toolbar drupal/search_api drupal/search_api_solr mbagnall/gov-info
+      cd /src/docroot/web
+      drush site:install -y --db-url=mysql://root:strongpassword@localhost/drupal --account-pass=password 
+      cd /src/docroot/web/modules
       wget https://github.com/ElusiveMind/govinfo/archive/main.zip
       unzip main.zip
-      drush pm:enable govinfo
-
+      drush pm:enable -y govinfo
+      drush pm:enable -y admin_toolbar
+      cd /var/www
+      ln -s /src/docroot/web html
+      ln -s /src/docroot/vendor/drush/drush/drush /usr/local/bin/drush
+      cat $ASSET_DIR/additional-settings.php >> /src/docroot/web/sites/default/settings.php
+      chmod -R 777 /src/docroot/web/sites/default/files
+      drush cr
